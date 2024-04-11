@@ -288,14 +288,38 @@ Yoruma açık olan diğer tasarım ilkelerinin aksine, substitution principle al
 * B**ir alt sınıf, üst sınıfın özel alanlarının değerlerini değiştirmemelidir.** _Ne? Bu nasıl mümkün olabilir?_ Bazı programlama dillerinin yansıma mekanizmaları aracılığıyla bir sınıfın özel üyelerine erişmenize izin verdiği ortaya çıktı. Diğer diller (Python, JavaScript) özel üyeler için herhangi bir korumaya sahip değildir.
 
 #### Ornek
-Şimdi Substitution Principle ilkesini ihlal eden bir belge sınıfları hiyerarşisi örneğine bakalım.
+Şimdi Substitution ilkesini ihlal eden bir belge sınıfları hiyerarşisi örneğine bakalım.
 ![Substitution](attachments/img/UML/SubstitutionPrincible1UML.png)
 > _kaydetmek salt okunur bir belgede mantıklı değildir, bu nedenle alt sınıf bunu geçersiz kılınan yöntemde temel davranışı sıfırlayarak çözmeye çalışır._
 
 `ReadOnlyDocuments` alt sınıfındaki kaydetme yöntemi, birisi onu çağırmaya çalışırsa bir exception atar. Temel yöntemde bu kısıtlama yoktur. Bu, kaydetmeden önce belge türünü kontrol etmezsek istemci kodunun bozulacağı anlamına gelir.
 
-İstemci kodu somut belge sınıflarına bağımlı hale geldiğinden, ortaya çıkan kod pen/closed principle ilkesini de ihlal eder. Yeni bir belge alt sınıfı eklerseniz, bunu desteklemek için istemci kodunu değiştirmeniz gerekir.
+İstemci kodu somut belge sınıflarına bağımlı hale geldiğinden, ortaya çıkan kod open/closed ilkesini de ihlal eder. Yeni bir belge alt sınıfı eklerseniz, bunu desteklemek için istemci kodunu değiştirmeniz gerekir.
 ![Substitution](attachments/img/UML/SubstitutionPrincible2UML.png)
 > _salt okunur belge sınıfını hiyerarşinin temel sınıfı haline getirdikten sonra sorun çözülür._
 
 Sınıf hiyerarşisini yeniden tasarlayarak sorunu çözebilirsiniz: bir alt sınıf bir üst sınıfın davranışını genişletmelidir, bu nedenle salt okunur belge hiyerarşinin temel sınıfı haline gelir. Yazılabilir belge artık temel sınıfı genişleten ve kaydetme davranışını ekleyen bir alt sınıftır.
+
+### Interface Segregation Principle
+> Clientlar, kullanmadıkları yöntemlere bağlı kalmaya zorlanmamalıdır.
+
+Arayüzlerinizi, client sınıfların ihtiyaç duymadıkları davranışları uygulamak zorunda kalmayacakları kadar dar tutmaya çalışın.
+
+Interface Segregation ilkesine göre, "şişman" arayüzleri daha ayrıntılı ve spesifik arayüzlere ayırmalısınız. İstemciler yalnızca gerçekten ihtiyaç duydukları yöntemleri uygulamalıdır. Aksi takdirde, "şişman" bir arayüze yapılan bir değişiklik, değiştirilen yöntemleri kullanmayan istemcileri bile bozacaktır.
+
+Sınıf kalıtımı, bir sınıfın yalnızca bir üst sınıfa sahip olmasını sağlar, ancak sınıfın aynı anda uygulayabileceği arayüz sayısını sınırlamaz. Bu nedenle, tek bir arayüze tonlarca ilgisiz yöntem tıkıştırmaya gerek yoktur. Bunu daha rafine birkaç arayüze ayırın; gerekirse hepsini tek bir sınıfta uygulayabilirsiniz. Ancak, bazı sınıflar bunlardan yalnızca birini uygulamakla yetinebilir.
+
+#### Ornek
+Uygulamaları çeşitli bulut bilişim sağlayıcılarıyla entegre etmeyi kolaylaştıran bir kütüphane oluşturduğunuzu düşünün. İlk sürümde yalnızca Amazon Cloud'u desteklese de, tüm bulut hizmetlerini ve özelliklerini kapsıyordu. 
+
+O zamanlar tüm bulut sağlayıcılarının Amazon ile aynı geniş özellik yelpazesine sahip olduğunu varsaymıştınız. Ancak iş başka bir sağlayıcı için destek uygulamaya geldiğinde, kütüphanenin arayüzlerinin çoğunun çok geniş olduğu ortaya çıktı. Bazı yöntemler, diğer bulut sağlayıcılarının sahip olmadığı özellikleri tanımlıyor.
+
+![InterfaceSegregation](attachments/img/UML/InterfaceSegregation1UML.png)
+> _tüm istemciler şişirilmiş arayüzün gereksinimlerini karşılayamaz._
+
+Yine de bu yöntemleri uygulayabilir ve oraya bazı taslaklar koyabilirsiniz, ancak bu hoş bir çözüm olmayacaktır. Daha iyi bir yaklaşım arayüzü parçalara ayırmaktır. Orijinal arayüzü uygulayabilen sınıflar artık sadece birkaç rafine arayüzü uygulayabilir. Diğer sınıflar yalnızca kendileri için anlamlı olan yöntemlere sahip arayüzleri uygulayabilir.
+
+![InterfaceSegregation](attachments/img/UML/InterfaceSegregation2UML.png)
+> _şişirilmiş bir arayüz, bir dizi daha ayrıntılı arayüze ayrılır._
+
+Diğer ilkelerde olduğu gibi bunda da çok ileri gidebilirsiniz. Zaten oldukça spesifik olan bir arayüzü daha fazla bölmeyin. Ne kadar çok arayüz oluşturursanız kodunuzun o kadar karmaşık hale geleceğini unutmayın. Dengeyi koruyun.
