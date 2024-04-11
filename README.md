@@ -336,7 +336,7 @@ Genelde ilk once dusuk seviyeli siniflar kodlanip daha sonra yuksek sinifli kodl
 
 Dependency Inversion Principle, bu bağımlılığın yönünün değiştirilmesini önermektedir.
 
-1. Yeni başlayanlar için, üst düzey sınıfların dayandığı alt düzey işlemler için arayüzleri, tercihen iş terimleriyle tanımlamanız gerekir. Örneğin, iş mantığı bir dizi openFile(x) , readBytes(n) , closeFile(x) yöntemi yerine openReport(file) yöntemini çağırmalıdır. Bu arayüzler üst düzey arayüzler olarak sayılır.
+1. Yeni başlayanlar için, üst düzey sınıfların dayandığı alt düzey işlemler için arayüzleri, tercihen iş terimleriyle tanımlamanız gerekir. Örneğin, iş mantığı bir dizi `openFile(x)` , `readBytes(n)` , `closeFile(x)` yöntemi yerine `openReport(file)` yöntemini çağırmalıdır. Bu arayüzler üst düzey arayüzler olarak sayılır.
 2. Artık üst düzey sınıfları somut alt düzey sınıflar yerine bu arayüzlere bağımlı hale getirebilirsiniz. Bu bağımlılık orijinal bağımlılıktan çok daha yumuşak olacaktır.
 3. Düşük seviyeli sınıflar bu arayüzleri uyguladıktan sonra, iş mantığı seviyesine bağımlı hale gelirler ve orijinal bağımlılığın yönünü tersine çevirirler.
 
