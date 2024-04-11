@@ -323,3 +323,34 @@ Yine de bu yöntemleri uygulayabilir ve oraya bazı taslaklar koyabilirsiniz, an
 > _şişirilmiş bir arayüz, bir dizi daha ayrıntılı arayüze ayrılır._
 
 Diğer ilkelerde olduğu gibi bunda da çok ileri gidebilirsiniz. Zaten oldukça spesifik olan bir arayüzü daha fazla bölmeyin. Ne kadar çok arayüz oluşturursanız kodunuzun o kadar karmaşık hale geleceğini unutmayın. Dengeyi koruyun.
+
+### Dependency Inversion Principle
+
+> _Yüksek seviyeli sınıflar düşük seviyeli sınıflara bağımlı olmamalıdır. Her ikisi de soyutlamalara bağlı olmalıdır. Soyutlamalar ayrıntılara bağlı olmamalıdır. Ayrıntılar soyutlamalara bağlı olmalıdır._
+
+Genellikle yazılım tasarlarken, iki sınıf seviyesi arasında bir ayrım yapabilirsiniz.
+- **Düşük seviyeli sınıflar** bir diskle çalışmak, ağ üzerinden veri aktarmak, bir veritabanına bağlanmak gibi temel işlemleri gerçekleştirir.
+- **Yüksek seviyeli sınıflar**, düşük seviyeli sınıfları bir şeyler yapmaya yönlendiren karmaşık iş mantığı içerir.
+
+Genelde ilk once dusuk seviyeli siniflar kodlanip daha sonra yuksek sinifli kodlara gecis yapilir cunku ilk basta hem dusuk seviyeli siniflarin bagimliliklari tam belli degildir. Diger bir anlatim ile, ilk once kucuk is parcaciklari yapilir sonra yonetilir
+
+Dependency Inversion Principle, bu bağımlılığın yönünün değiştirilmesini önermektedir.
+
+1. Yeni başlayanlar için, üst düzey sınıfların dayandığı alt düzey işlemler için arayüzleri, tercihen iş terimleriyle tanımlamanız gerekir. Örneğin, iş mantığı bir dizi openFile(x) , readBytes(n) , closeFile(x) yöntemi yerine openReport(file) yöntemini çağırmalıdır. Bu arayüzler üst düzey arayüzler olarak sayılır.
+2. Artık üst düzey sınıfları somut alt düzey sınıflar yerine bu arayüzlere bağımlı hale getirebilirsiniz. Bu bağımlılık orijinal bağımlılıktan çok daha yumuşak olacaktır.
+3. Düşük seviyeli sınıflar bu arayüzleri uyguladıktan sonra, iş mantığı seviyesine bağımlı hale gelirler ve orijinal bağımlılığın yönünü tersine çevirirler.
+
+Dependency Inversion Principle genellikle open/closed ilkesi ile birlikte gider: mevcut sınıfları bozmadan farklı iş mantığı sınıflarıyla kullanmak için düşük seviyeli sınıfları genişletebilirsiniz.
+
+#### Ornek
+Bu örnekte, yüksek seviyeli bütçe raporlama sınıfı, verilerini okumak ve kalıcı hale getirmek için düşük seviyeli bir veritabanı sınıfı kullanmaktadır. Bu, veritabanı sunucusunun yeni bir sürümünün yayınlanması gibi düşük seviyeli sınıftaki herhangi bir değişikliğin, veri depolama ayrıntılarıyla ilgilenmemesi gereken yüksek seviyeli sınıfı etkileyebileceği anlamına gelir.
+
+![DependencyInversion](attachments/img/UML/DependencyInversion1UML.png)
+> _Yuksek seviyeli sinif, dusuk seviyeli sinifa bagli_
+
+Bu sorunu, okuma/yazma işlemlerini tanımlayan üst düzey bir arayüz oluşturarak ve raporlama sınıfının alt düzey sınıf yerine bu arayüzü kullanmasını sağlayarak çözebilirsiniz. Ardından, iş mantığı tarafından bildirilen yeni okuma/yazma arayüzünü uygulamak için orijinal düşük seviyeli sınıfı değiştirebilir veya genişletebilirsiniz.
+
+![DependencyInversion](attachments/img/UML/DependencyInversion2UML.png)
+> _Dusuk seviyeli sinif yuksek seviyeli abstraction'a bagli_
+
+Sonuç olarak, orijinal bağımlılığın yönü tersine çevrilmiştir: düşük seviyeli sınıflar artık yüksek seviyeli soyutlamalara bağımlıdır
