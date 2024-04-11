@@ -239,3 +239,63 @@ bu problemi cozmek icin Rapor cizelgesi icin ayri bir sinif olusturabilirsiniz.
 ### Open/Closed Principle
 > **Siniflar Gelistirmeye acik degistirmeye kapali olmali.**
 
+Bu ilkenin ana hedefi koda yeni seyler eklerken eskisini degistirmeme uzerine dayalidir.
+
+Bir sınıfı genişletebiliyor, bir alt sınıf üretebiliyor ve onunla istediğinizi yapabiliyorsanız sınıf açıktır - yeni yöntemler veya alanlar ekleyebilir, temel davranışı geçersiz kılabilir, vb.
+
+#### Ornek
+
+Kargo ücretlerini hesaplayan bir Sipariş sınıfına sahip bir e-ticaret uygulamanız var ve tüm kargo yöntemleri sınıfın içinde sabit kodlanmış durumda. Yeni bir gönderim yöntemi eklemeniz gerekiyorsa, Order sınıfının kodunu değiştirmeniz ve onu bozma riskini almanız gerekir.
+![Open/Close](attachments/img/UML/OpenClose1UML.png)
+> _Uygulamaya yeni bir gönderim yöntemi eklediğinizde Sipariş sınıfını değiştirmeniz gerekir._
+
+Strateji modelini uygulayarak sorunu çözebilirsiniz. Gönderim yöntemlerini ortak bir arayüze sahip ayrı sınıflara çıkararak başlayın.
+![Open/Close](attachments/img/UML/OpenClose2UML.png)
+> _Artik yeni bir Gönderim yöntemi eklemek mevcut kodu degistirmez_
+>
+> [Encapsulate What Varies](#encapsulate-what-varies) Basligi altindaki ornegi best practice olarak yapmis olduk.
+
+### Liskov Substitution Principle
+> Bu ilke, 1987 yılında Veri soyutlama ve hiyerarşi adlı çalışmasında tanımlayan Barbara Liskov tarafından adlandırılmıştır: [https://refactoring.guru/liskov/dah](https://refactoring.guru/liskov/dah)
+
+> _Bir sınıfı genişletirken, istemci kodunu bozmadan üst sınıfın nesneleri yerine alt sınıfın nesnelerini geçirebilmeniz gerektiğini unutmayın._
+
+Bu, alt sınıfın üst sınıfın davranışıyla uyumlu kalması gerektiği anlamına gelir. Bir yöntemi geçersiz kılarken, temel davranışı tamamen başka bir şeyle değiştirmek yerine genişletin.
+
+Substitution principle, bir alt sınıfın üst sınıfın nesneleriyle çalışabilen kodla uyumlu kalıp kalmadığını tahmin etmeye yardımcı olan bir dizi kontroldür. Bu kavram, kütüphaneler ve çerçeveler geliştirirken kritik öneme sahiptir çünkü sınıflarınız, kodlarına doğrudan erişemeyeceğiniz ve değiştiremeyeceğiniz başka kişiler tarafından kullanılacaktır.
+
+Yoruma açık olan diğer tasarım ilkelerinin aksine, substitution principle alt sınıflar ve özellikle de yöntemleri için bir dizi resmi gereksinime sahiptir. Bu kontrol listesinin üzerinden ayrıntılı olarak geçelim.
+
+* **Bir alt sınıfın metodundaki parametre tipleri, üst sınıfın metodundaki parametre tipleriyle eşleşmeli veya daha soyut olmalıdır.** Kafa karistirici degil mi? biraz daha inceleyelim.
+  * Diyelim ki kedileri beslemesi gereken bir metodu olan bir sınıf var: `feed(Cat c)`. İstemci kodu her zaman kedi nesnelerini bu yönteme geçirir.
+  * **Iyi Yon:** Diyelim ki herhangi bir hayvanı (kedilerin bir üst sınıfı) besleyebilmesi için yöntemi geçersiz kılan bir alt sınıf oluşturdunuz: `feed(Animal c`. Şimdi, istemci koduna üst sınıfın bir nesnesi yerine bu alt sınıfın bir nesnesini geçirirseniz, her şey yine de düzgün çalışacaktır. Yöntem tüm hayvanları besleyebilir, bu nedenle müşteri tarafından iletilen herhangi bir kediyi besleyebilir.
+  * **Kotu yon:** Başka bir alt sınıf oluşturdunuz ve besleme yöntemini yalnızca Bengal kedilerini (kedilerin bir alt sınıfı) kabul edecek şekilde kısıtladınız: `feed(BengalCat c)`. İstemci kodunu orijinal sınıf yerine bu şekilde bir nesne ile bağlarsanız ne olur? Yöntem yalnızca belirli bir kedi türünü besleyebildiğinden, istemci tarafından iletilen genel kedilere hizmet vermeyecek ve ilgili tüm işlevleri bozacaktır.
+* **Bir alt sınıfın yöntemindeki dönüş türü, üst sınıfın yöntemindeki dönüş türüyle eşleşmeli veya bu türün bir alt türü olmalıdır.** Gördüğünüz gibi, geri dönüş türü için gereklilikler parametre türleri için gerekliliklerin tersidir.
+  * `buyCat()` metodu olan bir sınıfınız olduğunu varsayalım: Cat . İstemci kodu, bu yöntemin çalıştırılması sonucunda herhangi bir kedi almayı bekler.
+  * İyi: Bir alt sınıf, yöntemi aşağıdaki gibi geçersiz kılar: `buyCat(): BengalCat`. İstemci bir Bengal kedisi alır, ki bu hala bir kedidir, yani her şey yolundadır.
+  * Kötü: Bir alt sınıf yöntemi aşağıdaki gibi geçersiz kılar: `buyCat(): Animal`. Şimdi istemci kodu, bir kedi için tasarlanmış bir yapıya uymayan bilinmeyen bir genel hayvan (timsah? ayı?) aldığı için bozulur.
+
+  Bir başka anti örnek de dinamik yazım özelliğine sahip programlama dilleri dünyasından gelir: temel yöntem bir string döndürür, ancak geçersiz kılınan yöntem bir int döndürür.
+* **Bir alt sınıftaki bir yöntem, temel yöntemin atması beklenmeyen Exception atmamalıdır.** Başka bir deyişle, exceptionlar, temel yöntemin zaten fırlatabildiği exceptionlar ile eşleşmeli veya bunların alt türleri olmalıdır. Bu kural, istemci kodundaki `try-catch` bloklarının temel yöntemin fırlatması muhtemel belirli exceptionlari hedeflemesinden kaynaklanır. Bu nedenle, beklenmedik bir exception, istemci kodunun savunma satırlarından kayabilir ve tüm uygulamayı çökertebilir.
+  > Çoğu modern programlama dilinde, özellikle de statik olarak yazılanlarda (Java, C# ve diğerleri), bu kurallar dilin içine yerleştirilmiştir. Bu kuralları ihlal eden bir programı derleyemezsiniz.
+* **Bir alt sınıf ön koşulları güçlendirmemelidir.** Örneğin, temel yöntemin int türünde bir parametresi vardır. Bir alt sınıf bu yöntemi geçersiz kılarsa ve yönteme aktarılan bir bağımsız değişkenin değerinin pozitif olmasını gerektirirse (değer negatifse bir exception atarak), bu ön koşulları güçlendirir. Eskiden yönteme negatif sayılar aktarıldığında sorunsuz çalışan istemci kodu, artık bu alt sınıftan bir nesneyle çalışmaya başlarsa bozulur.
+* **Bir alt sınıf, son koşulları zayıflatmamalıdır.** Diyelim ki veritabanı ile çalışan bir metoda sahip bir sınıfınız var. Sınıfın bir yönteminin bir değer döndürdükten sonra her zaman tüm açık veritabanı bağlantılarını kapatması gerekiyor.
+
+  Bir alt sınıf oluşturdunuz ve veritabanı bağlantılarının açık kalmasını sağlayacak şekilde değiştirdiniz, böylece onları yeniden kullanabilirsiniz. Ancak istemci niyetiniz hakkında hiçbir şey bilmeyebilir. Yöntemlerin tüm bağlantıları kapatmasını beklediğinden, yöntemi çağırdıktan hemen sonra programı sonlandırabilir ve sistemi hayalet veritabanı bağlantılarıyla kirletebilir.
+* **Bir üst sınıfın değişmezleri korunmalıdır.** Bu muhtemelen en az resmi olan kuraldır. Değişmezler, bir nesnenin anlamlı olduğu koşullardır. Örneğin, bir kedinin değişmezleri dört bacağa, kuyruğa, miyavlama yeteneğine vb. sahip olmasıdır. Değişmezlerle ilgili kafa karıştırıcı kısım, arayüzleri veya yöntemler içindeki bir dizi onaylama şeklinde açıkça tanımlanabilmelerinin yanı sıra, belirli birim testleri ve istemci kodunun beklentileri tarafından da ima edilebilmeleridir.
+
+  Değişmezlerle ilgili kural, ihlal edilmesi en kolay kuraldır çünkü karmaşık bir sınıfın tüm değişmezlerini yanlış anlayabilir veya fark etmeyebilirsiniz. Bu nedenle, bir sınıfı genişletmenin en güvenli yolu, yeni alanlar ve yöntemler eklemek ve üst sınıfın mevcut üyeleriyle uğraşmamaktır. Elbette bu gerçek hayatta her zaman mümkün değildir.
+* B**ir alt sınıf, üst sınıfın özel alanlarının değerlerini değiştirmemelidir.** _Ne? Bu nasıl mümkün olabilir?_ Bazı programlama dillerinin yansıma mekanizmaları aracılığıyla bir sınıfın özel üyelerine erişmenize izin verdiği ortaya çıktı. Diğer diller (Python, JavaScript) özel üyeler için herhangi bir korumaya sahip değildir.
+
+#### Ornek
+Şimdi Substitution Principle ilkesini ihlal eden bir belge sınıfları hiyerarşisi örneğine bakalım.
+![Substitution](attachments/img/UML/SubstitutionPrincible1UML.png)
+> _kaydetmek salt okunur bir belgede mantıklı değildir, bu nedenle alt sınıf bunu geçersiz kılınan yöntemde temel davranışı sıfırlayarak çözmeye çalışır._
+
+`ReadOnlyDocuments` alt sınıfındaki kaydetme yöntemi, birisi onu çağırmaya çalışırsa bir exception atar. Temel yöntemde bu kısıtlama yoktur. Bu, kaydetmeden önce belge türünü kontrol etmezsek istemci kodunun bozulacağı anlamına gelir.
+
+İstemci kodu somut belge sınıflarına bağımlı hale geldiğinden, ortaya çıkan kod pen/closed principle ilkesini de ihlal eder. Yeni bir belge alt sınıfı eklerseniz, bunu desteklemek için istemci kodunu değiştirmeniz gerekir.
+![Substitution](attachments/img/UML/SubstitutionPrincible2UML.png)
+> _salt okunur belge sınıfını hiyerarşinin temel sınıfı haline getirdikten sonra sorun çözülür._
+
+Sınıf hiyerarşisini yeniden tasarlayarak sorunu çözebilirsiniz: bir alt sınıf bir üst sınıfın davranışını genişletmelidir, bu nedenle salt okunur belge hiyerarşinin temel sınıfı haline gelir. Yazılabilir belge artık temel sınıfı genişleten ve kaydetme davranışını ekleyen bir alt sınıftır.
