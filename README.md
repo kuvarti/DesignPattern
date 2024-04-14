@@ -26,19 +26,19 @@ Nesnenin gercek sinifini kullanarak, kendisinden bagimsiz olarak gercek sinif oz
 ## Relations Between Objects
 
 ### Dependency (Bagimlilik)
-![DependencyUML](attachments/img/UML/Dependency_UML.png)
+![DependencyUML](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/Dependency_UML.png)
 > _Professor Course Metaryellerine bagimli._
 
 Siniflar arasi en basit ve zayif baglanti sekli. Bir sınıfın tanımında yapılan bazı değişiklikler diğer sınıfta da değişikliklere neden olabiliyorsa iki sınıf arasında bağımlılık vardır.
 
 ### Association (İlişkilendirme)
-![AssociationUML](attachments/img/UML/Association_UML.png)
+![AssociationUML](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/Association_UML.png)
 > _Professor Student ile iletisim sagliyor._
 
 Genel olarak, başka bir nesneyi içeren bir alanı temsil etmek için bir ilişkilendirme kullanırsınız. Bu alan iki nesne arasında bir bağlantı görevi görür. Ancak her zaman bir alan olmak zorunda değildir. İlişkilendirme, bir nesne döndüren bir yöntemle de temsil edilebilir. Aksi takdirde, arayüzler arasında ilişkilendirme kullanmak mümkün olmazdı (arayüzlerde alan olmadığı için).
 
 ### Aggregation (Kümeleme)
-![AggregationUML](attachments/img/UML/Aggregation_UML.png)
+![AggregationUML](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/Aggregation_UML.png)
 > _Department Professor iceriyor._
 
 kümeleme, birden fazla nesne arasındaki "bire-çok", "çoğa-çok" veya "bütün-parça" ilişkilerini temsil eden özel bir ilişkilendirme türüdür. 
@@ -46,7 +46,7 @@ kümeleme, birden fazla nesne arasındaki "bire-çok", "çoğa-çok" veya "büt�
 Genellikle, kümeleme altında, bir nesne bir dizi başka nesneye "sahiptir" ve bir kap veya koleksiyon olarak hizmet eder. Bileşen, konteyner olmadan var olabilir ve aynı anda birkaç konteynere bağlanabilir.
 
 ### Composition (Kompozisyon)
-![CompositionUML](attachments/img/UML/Composition_UML.png)
+![CompositionUML](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/Composition_UML.png)
 > _University Departmentlerden olusuyor._
 
 Kompozisyon, bir nesnenin diğerinin bir veya daha fazla örneğinden oluştuğu özel bir toplama türüdür. Bu ilişki ile diğerleri arasındaki fark, bileşenin yalnızca kabın bir parçası olarak var olabilmesidir.
@@ -61,7 +61,7 @@ Butun iliski cesitlerini gorduk. simdide birlikte nasil baglandigina bakalim.
 * **Implementation :** А sınıfı, B arayüzünde bildirilen yöntemleri tanımlar. A nesneleri B olarak ele alınabilir. A sınıfı B'ye bağlıdır.
 * **Inheritance :** A sinifi B'nin arayuzu dahil butun methodlarini tanimlar ve genisletebilir. A nesneleri B olarak ele alınabilir. A sınıfı B'ye bağlıdır.
 
-![RelationsUML](attachments/img/UML/Relations_UML.png)
+![RelationsUML](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/Relations_UML.png)
 > _Zayiftan Gucluye dogru Obje ve sinif iliskileri._
 
 # INTRODUCTION TO PATTERNS
@@ -159,11 +159,11 @@ Tabiki bu uygulama best practice degil. Cunku her bir kargo sirketi girdiginde v
 
 #### Encapsulation on a class level
 Zaman icinde en basit is icin bile ust uste yeni islemler gerekebilir. Yeni islemler kendi yardimci fonksiyonlari ve davranislari ile gelecektir, ve ana fonksiyonumuz git gide bulaniklasacaktir. Her şeyi yeni bir sınıfa çıkarmak işleri çok daha açık ve basit hale getirebilir.
-![OrderClass](attachments/img/UML/OrderClassUML.png)
+![OrderClass](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/OrderClassUML.png)
 > Eski Sinif: Kargo Ucretini Order Class icersinde hesapliyordu
 
 Order sınıfının nesneleri, kargo sirketi ile ilgili tüm işleri sadece bunu yapan özel bir nesneye devreder.
-![Couriercalculator](attachments/img/UML/CourierPriceCalculatorUML.png)
+![Couriercalculator](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/CourierPriceCalculatorUML.png)
 ```cpp
 int total = 0;
 for (int i=0; i < order.length; i++) {
@@ -184,7 +184,7 @@ Coku bozmadan rahat bir sekilde yeni ozellikler ekleyebildigimizde tasarimimizin
 3. Bağımlı olan sınıfın bu Interface'i uygulamasını sağlayın.
 4. Şimdi ikinci sınıfı concrete(somut) sınıf yerine bu interface e bağımlı hale getirin. Hala orijinal sınıfın nesneleriyle çalışmasını sağlayabilirsiniz, ancak bağlantı artık çok daha esnektir
 
-![CatFoodInterface](attachments/img/UML/CatFoodInterfaceUML.png)
+![CatFoodInterface](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/CatFoodInterfaceUML.png)
 > orijinal sınıfın nesneleri, ancak bağlantı artık çok daha esnek. Arayüz çıkarılmadan önce ve sonra. Sağdaki kod soldaki koddan daha esnektir, ancak aynı zamanda daha karmaşıktır.
 
 Bu değişikliği yaptıktan sonra muhtemelen hemen bir fayda hissetmeyeceksiniz. Aksine, kod daha önce olduğundan daha karmaşık hale geldi. Bununla birlikte, bunun bazı ekstra işlevler için iyi bir genişletme noktası olabileceğini düşünüyorsanız veya kodunuzu kullanan diğer bazı kişilerin burada genişletmek isteyebileceğini düşünüyorsanız, yapin gitsin.
@@ -205,12 +205,12 @@ Bu prensibin, bir nesnenin diğerine referans olabildiği ancak yaşam döngüs�
 
 #### ORNEK
 Bir araba ureticisine katalog uygulamasi yaptigimizi dusunelim. Uretici araba ve kamyon seceneklerinin 2sinde de benzili ve elektrikli cesitler var. Ayni zamanda her model Otopilot veya manuel surus ssecenekleri var.
-![BadIheritanceComposition](attachments/img/UML/InheritanceCompositionUML.png)
+![BadIheritanceComposition](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/InheritanceCompositionUML.png)
 
 Gördüğünüz gibi, her ek parametre alt sınıfların sayısının katlanmasına neden olur. Bu sorunu kompozisyon ile çözebilirsiniz. Bir davranışı kendi başlarına uygulayan araç nesneleri yerine, bunu diğer nesnelere devredebilirler. 
 
 Ek avantajı ise bir davranışı çalışma zamanında değiştirebilmenizdir. Örneğin, bir araba nesnesine bağlı bir motor nesnesini sadece arabaya farklı bir motor nesnesi atayarak değiştirebilirsiniz.
-![BadIheritanceComposition](attachments/img/UML/TrueCompositionUML.png)
+![BadIheritanceComposition](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/TrueCompositionUML.png)
 
 Bu yapi strategy patterna benzer.
 
@@ -230,11 +230,11 @@ Eger bir sinif cok fazla is yapiyorsa, bunlardan birini degistirmek istediginizd
 #### Ornek
 Employee sınıfının değişmesi için birkaç neden vardır. İlk neden sınıfın ana işiyle ilgili olabilir: çalışan verilerini yönetmek. Bununla birlikte, başka bir neden daha vardır: zaman çizelgesi raporunun biçimi zaman içinde değişebilir ve bu da sınıf içindeki kodu değiştirmenizi gerektirir.
 
-![EmployeeUML](attachments/img/UML/EmployeeUML.png)
+![EmployeeUML](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/EmployeeUML.png)
 
 bu problemi cozmek icin Rapor cizelgesi icin ayri bir sinif olusturabilirsiniz.
 
-![TimeSheetEmployeeUML](attachments/img/UML/TimeSheetEmployeeUML.png)
+![TimeSheetEmployeeUML](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/TimeSheetEmployeeUML.png)
 
 ### Open/Closed Principle
 > **Siniflar Gelistirmeye acik degistirmeye kapali olmali.**
@@ -246,11 +246,11 @@ Bir sınıfı genişletebiliyor, bir alt sınıf üretebiliyor ve onunla istedi�
 #### Ornek
 
 Kargo ücretlerini hesaplayan bir Sipariş sınıfına sahip bir e-ticaret uygulamanız var ve tüm kargo yöntemleri sınıfın içinde sabit kodlanmış durumda. Yeni bir gönderim yöntemi eklemeniz gerekiyorsa, Order sınıfının kodunu değiştirmeniz ve onu bozma riskini almanız gerekir.
-![Open/Close](attachments/img/UML/OpenClose1UML.png)
+![Open/Close](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/OpenClose1UML.png)
 > _Uygulamaya yeni bir gönderim yöntemi eklediğinizde Sipariş sınıfını değiştirmeniz gerekir._
 
 Strateji modelini uygulayarak sorunu çözebilirsiniz. Gönderim yöntemlerini ortak bir arayüze sahip ayrı sınıflara çıkararak başlayın.
-![Open/Close](attachments/img/UML/OpenClose2UML.png)
+![Open/Close](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/OpenClose2UML.png)
 > _Artik yeni bir Gönderim yöntemi eklemek mevcut kodu degistirmez_
 >
 > [Encapsulate What Varies](#encapsulate-what-varies) Basligi altindaki ornegi best practice olarak yapmis olduk.
@@ -289,13 +289,13 @@ Yoruma açık olan diğer tasarım ilkelerinin aksine, substitution principle al
 
 #### Ornek
 Şimdi Substitution ilkesini ihlal eden bir belge sınıfları hiyerarşisi örneğine bakalım.
-![Substitution](attachments/img/UML/SubstitutionPrincible1UML.png)
+![Substitution](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/SubstitutionPrincible1UML.png)
 > _kaydetmek salt okunur bir belgede mantıklı değildir, bu nedenle alt sınıf bunu geçersiz kılınan yöntemde temel davranışı sıfırlayarak çözmeye çalışır._
 
 `ReadOnlyDocuments` alt sınıfındaki kaydetme yöntemi, birisi onu çağırmaya çalışırsa bir exception atar. Temel yöntemde bu kısıtlama yoktur. Bu, kaydetmeden önce belge türünü kontrol etmezsek istemci kodunun bozulacağı anlamına gelir.
 
 İstemci kodu somut belge sınıflarına bağımlı hale geldiğinden, ortaya çıkan kod open/closed ilkesini de ihlal eder. Yeni bir belge alt sınıfı eklerseniz, bunu desteklemek için istemci kodunu değiştirmeniz gerekir.
-![Substitution](attachments/img/UML/SubstitutionPrincible2UML.png)
+![Substitution](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/SubstitutionPrincible2UML.png)
 > _salt okunur belge sınıfını hiyerarşinin temel sınıfı haline getirdikten sonra sorun çözülür._
 
 Sınıf hiyerarşisini yeniden tasarlayarak sorunu çözebilirsiniz: bir alt sınıf bir üst sınıfın davranışını genişletmelidir, bu nedenle salt okunur belge hiyerarşinin temel sınıfı haline gelir. Yazılabilir belge artık temel sınıfı genişleten ve kaydetme davranışını ekleyen bir alt sınıftır.
@@ -314,12 +314,12 @@ Uygulamaları çeşitli bulut bilişim sağlayıcılarıyla entegre etmeyi kolay
 
 O zamanlar tüm bulut sağlayıcılarının Amazon ile aynı geniş özellik yelpazesine sahip olduğunu varsaymıştınız. Ancak iş başka bir sağlayıcı için destek uygulamaya geldiğinde, kütüphanenin arayüzlerinin çoğunun çok geniş olduğu ortaya çıktı. Bazı yöntemler, diğer bulut sağlayıcılarının sahip olmadığı özellikleri tanımlıyor.
 
-![InterfaceSegregation](attachments/img/UML/InterfaceSegregation1UML.png)
+![InterfaceSegregation](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/InterfaceSegregation1UML.png)
 > _tüm istemciler şişirilmiş arayüzün gereksinimlerini karşılayamaz._
 
 Yine de bu yöntemleri uygulayabilir ve oraya bazı taslaklar koyabilirsiniz, ancak bu hoş bir çözüm olmayacaktır. Daha iyi bir yaklaşım arayüzü parçalara ayırmaktır. Orijinal arayüzü uygulayabilen sınıflar artık sadece birkaç rafine arayüzü uygulayabilir. Diğer sınıflar yalnızca kendileri için anlamlı olan yöntemlere sahip arayüzleri uygulayabilir.
 
-![InterfaceSegregation](attachments/img/UML/InterfaceSegregation2UML.png)
+![InterfaceSegregation](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/InterfaceSegregation2UML.png)
 > _şişirilmiş bir arayüz, bir dizi daha ayrıntılı arayüze ayrılır._
 
 Diğer ilkelerde olduğu gibi bunda da çok ileri gidebilirsiniz. Zaten oldukça spesifik olan bir arayüzü daha fazla bölmeyin. Ne kadar çok arayüz oluşturursanız kodunuzun o kadar karmaşık hale geleceğini unutmayın. Dengeyi koruyun.
@@ -345,12 +345,12 @@ Dependency Inversion Principle genellikle open/closed ilkesi ile birlikte gider:
 #### Ornek
 Bu örnekte, yüksek seviyeli bütçe raporlama sınıfı, verilerini okumak ve kalıcı hale getirmek için düşük seviyeli bir veritabanı sınıfı kullanmaktadır. Bu, veritabanı sunucusunun yeni bir sürümünün yayınlanması gibi düşük seviyeli sınıftaki herhangi bir değişikliğin, veri depolama ayrıntılarıyla ilgilenmemesi gereken yüksek seviyeli sınıfı etkileyebileceği anlamına gelir.
 
-![DependencyInversion](attachments/img/UML/DependencyInversion1UML.png)
+![DependencyInversion](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/DependencyInversion1UML.png)
 > _Yuksek seviyeli sinif, dusuk seviyeli sinifa bagli_
 
 Bu sorunu, okuma/yazma işlemlerini tanımlayan üst düzey bir arayüz oluşturarak ve raporlama sınıfının alt düzey sınıf yerine bu arayüzü kullanmasını sağlayarak çözebilirsiniz. Ardından, iş mantığı tarafından bildirilen yeni okuma/yazma arayüzünü uygulamak için orijinal düşük seviyeli sınıfı değiştirebilir veya genişletebilirsiniz.
 
-![DependencyInversion](attachments/img/UML/DependencyInversion2UML.png)
+![DependencyInversion](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/UML/DependencyInversion2UML.png)
 > _Dusuk seviyeli sinif yuksek seviyeli abstraction'a bagli_
 
 Sonuç olarak, orijinal bağımlılığın yönü tersine çevrilmiştir: düşük seviyeli sınıflar artık yüksek seviyeli soyutlamalara bağımlıdır

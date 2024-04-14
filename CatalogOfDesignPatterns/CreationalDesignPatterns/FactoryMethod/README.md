@@ -10,34 +10,34 @@ Bir lojistik yönetim uygulaması oluşturduğunuzu düşünün. Uygulamanızın
 
 Bir süre sonra uygulamanız oldukça popüler hale gelir. Her gün deniz taşımacılığı şirketlerinden deniz lojistiğini uygulamaya dahil etmek için onlarca talep alıyorsunuz.
 
-![FactoryMethodProblem](../../../attachments/img/specials/FactoryMethod/FactoryMethodProblem.png)
+![FactoryMethodProblem](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/FactoryMethod/FactoryMethodProblem.png)
 > _Kodun geri kalanı zaten mevcut sınıflara bağlıysa, programa yeni bir sınıf eklemek o kadar da kolay değildir._
 
 Mukemmel, degil mi? Şu anda kodunuzun çoğu `Truck` sınıfına bağlı. Uygulamaya `Ship` eklemek, tüm kod tabanında değişiklik yapmayı gerektirecektir. Dahası, daha sonra uygulamaya başka bir ulaşım türü eklemeye karar verirseniz, muhtemelen tüm bu değişiklikleri yeniden yapmanız gerekecektir.
 
 ## Solution
 Factory Method, doğrudan nesne oluşturma çağrılarını (`new` operatörünü kullanarak) özel bir factory method ile yapılan çağrılarla değiştirmenizi önerir. Endişelenmeyin: nesneler hala `new` işleci aracılığıyla oluşturulur, ancak bu işleç factory method  içerisinden çağrılır. Bir factory method tarafından döndürülen nesneler genellikle `Product` olarak adlandırılır.
-![FactoryMethodSolution](../../../attachments/img/specials/FactoryMethod/FactoryMethodSolution1.png)
+![FactoryMethodSolution](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/FactoryMethod/FactoryMethodSolution1.png)
 > _Alt sınıflar, factory method tarafından döndürülen nesnelerin sınıfını değiştirebilir._
 
 İlk bakışta bu değişiklik anlamsız görünebilir: sadece kurucu çağrısını programın bir bölümünden diğerine taşıdık. Ancak şunu düşünün: artık bir alt sınıfta fabrika yöntemini geçersiz kılabilir ve yöntem tarafından oluşturulan ürünlerin sınıfını değiştirebilirsiniz.
 
 Ancak küçük bir sınırlama vardır: alt sınıflar, yalnızca bu ürünler ortak bir temel sınıfa veya arayüze sahipse farklı ürün türleri döndürebilir. Ayrıca, temel sınıftaki fabrika yönteminin dönüş türü bu arayüz olarak bildirilmelidir.
 
-![FactoryMethodSolution](../../../attachments/img/specials/FactoryMethod/FactoryMethodSolution2.png)
+![FactoryMethodSolution](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/FactoryMethod/FactoryMethodSolution2.png)
 > _Butun Siniflar ayni arayuze uymalidir._
 
 Örneğin, hem `Truck` hem de `Ship` sınıfları, deliver adında bir yöntem bildiren `Transport` arayüzünü uygulamalıdır. Her sınıf bu yöntemi farklı şekilde uygular: kamyonlar kargoyu karadan, gemiler kargoyu denizden teslim eder. `RoadLogistics` sınıfındaki fabrika yöntemi `Truck` nesneleri döndürürken, `SeaLogistics` sınıfındaki fabrika yöntemi `Ship` nesneleri döndürür.
 
 Factory Method kullanan kod (genellikle istemci kodu olarak adlandırılır), çeşitli alt sınıflar tarafından döndürülen gerçek ürünler arasında bir fark görmez. İstemci tüm ürünleri soyut Taşıma olarak ele alır.
 
-![FactoryMethodSolution](../../../attachments/img/specials/FactoryMethod/FactoryMethodSolution3.png)
+![FactoryMethodSolution](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/FactoryMethod/FactoryMethodSolution3.png)
 > _Tüm ürün sınıfları ortak bir arayüz uyguladığı sürece, nesnelerini istemci koduna bozmadan aktarabilirsiniz._
 
 İstemci, tüm taşıma nesnelerinin `deliver` yöntemine sahip olması gerektiğini bilir, ancak bunun tam olarak nasıl çalıştığı istemci için önemli değildir.
 
 ## Structure
-![FactoryMethodStructure](../../../attachments/img/specials/FactoryMethod/FactoryMethodStructure.png)
+![FactoryMethodStructure](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/FactoryMethod/FactoryMethodStructure.png)
 
 1. **Product**, oluşturucu ve alt sınıfları tarafından üretilebilecek tüm nesneler için ortak olan arayüzü bildirir.
 2. **Concrete Products**, ürün arayüzünün farklı uygulamalarıdır.
@@ -53,7 +53,7 @@ Bu örnek, istemci kodunu somut UI sınıflarına bağlamadan platformlar arası
 
 Temel `Dialog` sınıfı, penceresini oluşturmak için farklı UI öğeleri kullanır. Çeşitli işletim sistemleri altında bu öğeler biraz farklı görünebilir, ancak yine de tutarlı davranmaları gerekir. Windows'taki bir düğme Linux'ta hala bir düğmedir.
 
-![FactoryMethodPseudocode](../../../attachments/img/specials/FactoryMethod/FactoryMethodPseudocode.png)
+![FactoryMethodPseudocode](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/FactoryMethod/FactoryMethodPseudocode.png)
 > _Çapraz platform diyalog örneği._
 
 Factory method devreye girdiğinde, `Dialog` sınıfının mantığını her işletim sistemi için yeniden yazmanıza gerek kalmaz. Temel `Dialog` sınıfının içinde buttonlar üreten bir factory method tanımlarsak, daha sonra factory method'dan Windows tarzı buttonlar döndüren bir alt sınıf oluşturabiliriz. Alt sınıf daha sonra kodun çoğunu temel sınıftan miras alır, ancak factory method sayesinde ekranda Windows görünümlü buttonlar oluşturabilir.

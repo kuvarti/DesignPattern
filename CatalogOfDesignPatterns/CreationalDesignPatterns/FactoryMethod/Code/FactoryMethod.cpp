@@ -38,6 +38,7 @@ private:
     }
 public:
     void hazirla() override {
+        this->Init();
         std::cout << "Espresso hazırlanıyor..." << std::endl;
         std::cout << sure << " dakika demleniyor." << std::endl;
         std::cout << "Çekirdek kalınlığı: " << cekirdekKalinlik << std::endl;
@@ -52,6 +53,7 @@ private:
     }
 public:
     void hazirla() override {
+        this->Init();
         std::cout << "Filtre kahvesi hazırlanıyor..." << std::endl;
         std::cout << sure << " dakika demleniyor." << std::endl;
         std::cout << "Çekirdek kalınlığı: " << cekirdekKalinlik << std::endl;
