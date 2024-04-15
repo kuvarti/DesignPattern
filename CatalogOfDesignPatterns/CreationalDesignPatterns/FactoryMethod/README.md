@@ -60,7 +60,7 @@ Factory method devreye girdiğinde, `Dialog` sınıfının mantığını her iş
 
 Bu modelin çalışması için, temel `Dialog` sınıfının abstract buttonlarla çalışması gerekir: tüm somut buttonlarin takip ettiği bir temel sınıf veya bir arayüz. Bu şekilde, `Dialog` içindeki kod, hangi tür buttonlarla çalışırsa çalışsın işlevsel kalır.
 
-Elbette, bu yaklaşımı diğer UI öğelerine de uygulayabilirsiniz. Ancak, `Dialog`'a eklediğiniz her yeni factory method ile [Abstract Factory](#) modeline daha da yaklaşırsınız. Korkmayın, bu pattern hakkında daha sonra konuşacağız.
+Elbette, bu yaklaşımı diğer UI öğelerine de uygulayabilirsiniz. Ancak, `Dialog`'a eklediğiniz her yeni factory method ile [Abstract Factory](https://github.com/kuvarti/DesignPattern/blob/main/CatalogOfDesignPatterns/CreationalDesignPatterns/AbstractFactory/README.md) modeline daha da yaklaşırsınız. Korkmayın, bu pattern hakkında daha sonra konuşacağız.
 
 ```csharp
 // Yaratıcı sınıf, bir ürün sınıfının bir nesnesini döndürmesi gereken factory methodu tanımlar.
@@ -173,7 +173,7 @@ method main() is
 [-] Kalıbı uygulamak için çok sayıda yeni alt sınıf eklemeniz gerektiğinden kod daha karmaşık hale gelebilir. En iyi senaryo, kalıbı mevcut bir yaratıcı sınıflar hiyerarşisine dahil ettiğiniz durumdur.\
 
 ## Relations with Other Patterns
-* Birçok tasarım [Factory Method](#) (daha az karmaşık ve alt sınıflar aracılığıyla daha özelleştirilebilir) kullanarak başlar ve [Abstract Factory], [Prototype] veya [Builder]'a (daha esnek, ancak daha karmaşık) doğru gelişir.
-* [Abstract Factory] sınıfları genellikle bir dizi [Factory Metoduna](#) dayanır, ancak bu sınıflardaki metotları oluşturmak için [Prototype] da kullanabilirsiniz.
+* Birçok tasarım [Factory Method](#) (daha az karmaşık ve alt sınıflar aracılığıyla daha özelleştirilebilir) kullanarak başlar ve [Abstract Factory](https://github.com/kuvarti/DesignPattern/blob/main/CatalogOfDesignPatterns/CreationalDesignPatterns/AbstractFactory/README.md), [Prototype] veya [Builder]'a (daha esnek, ancak daha karmaşık) doğru gelişir.
+* [Abstract Factory](https://github.com/kuvarti/DesignPattern/blob/main/CatalogOfDesignPatterns/CreationalDesignPatterns/AbstractFactory/README.md) sınıfları genellikle bir dizi [Factory Metoduna](#) dayanır, ancak bu sınıflardaki metotları oluşturmak için [Prototype] da kullanabilirsiniz.
 * [Prototype] kalıtıma dayalı değildir, bu nedenle dezavantajları yoktur. Öte yandan, Prototype klonlanan nesnenin karmaşık bir şekilde başlatılmasını gerektirir. [Factory Method](#) kalıtıma dayanır ancak bir başlatma adımı gerektirmez.
 * [Factory Metoduna](#), [Template Method]'un özelleştirilmiş halidir. Aynı zamanda, bir _Factory Metodu_ büyük bir _Template Metodunda_ bir adım olarak hizmet edebilir.
