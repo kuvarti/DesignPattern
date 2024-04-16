@@ -1,6 +1,6 @@
 # Abtract Factory
 
-![AbstractFactory](../../../attachments/img/specials/AbstractFactory/AbstractFactory.png)
+![AbstractFactory](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/AbstractFactory/AbstractFactory.png)
 
 Soyut Fabrika, somut sınıflarını belirtmeden birbiriyle ilişkili nesne aileleri üretmenizi sağlayan bir creational design patterndir.
 
@@ -11,11 +11,11 @@ Bir mobilya magazasi yaptigimizi dusunelim. Asagidaki urunleri sergilemeniz gere
 1.  Urun gruplari, `Chair`, `Sofa`, `CoffeeTable`. (Sandalye, Kanepe, Kahve masasi)
 2.  Urun gruplarinin cesitli turleri. Ornegin `Modern`, `Victorian`, `ArtDeco`.
 
-![AbstractFactoryProblem](../../../attachments/img/specials/AbstractFactory/AbstractFactoryProblem1.png)
+![AbstractFactoryProblem](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/AbstractFactory/AbstractFactoryProblem1.png)
 > _Urun gruplari ve cesitli turleri._
 
 Aynı turden diğer nesnelerle eşleşmeleri için tek tek mobilya nesneleri oluşturmanın bir yoluna ihtiyacınız var. Müşteriler eşleşmeyen mobilyalar aldıklarında oldukça sinirlenirler.
-![AbstractFactoryProblem](../../../attachments/img/specials/AbstractFactory/AbstractFactoryProblem2.png)
+![AbstractFactoryProblem](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/AbstractFactory/AbstractFactoryProblem2.png)
 > _Modern Kanepe Victorian sandalye ile uyusmuyor._
 
 Ayrıca, programa yeni ürünler veya ürün gruplari eklerken mevcut kodu değiştirmek istemezsiniz. Mobilya satıcıları kataloglarını çok sık günceller ve her seferinde çekirdek kodu değiştirmek istemezsiniz.
@@ -24,13 +24,13 @@ Ayrıca, programa yeni ürünler veya ürün gruplari eklerken mevcut kodu deği
 
 Abstract Factory modelinin önerdiği ilk şey, ürün grubundaki her bir ürün (örneğin sandalye, kanepe veya sehpa) için arayüzleri önceden deklare etmektir. Daha sonra tüm ürün çeşitlerinin bu arayüzleri takip etmesini sağlayabilirsiniz. Örneğin, tüm sandalye çeşitleri `Chair` arayüzünü uygulayabilir; tüm sehpa çeşitleri `CoffeeTable` arayüzünü uygulayabilir vb.
 
-![AbstractFactorySolution](../../../attachments/img/specials/AbstractFactory/AbstractFactorySolution1.png)
+![AbstractFactorySolution](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/AbstractFactory/AbstractFactorySolution1.png)
 > _Aynı nesnenin tüm varyantları tek bir sınıf hiyerarşisine taşınmalıdır._
 
 Bir sonraki adım, ürün grubunun parçası olan tüm ürünler için (örneğin, `createChair` , `createSofa` ve `createCoffeeTable`) oluşturma yöntemlerinin bir listesini içeren bir arayüz olan **Abstract Factory**'yi deklare etmektir. Bu yöntemler, daha önce çıkardığımız arayüzler tarafından temsil edilen soyut ürün türlerini döndürmelidir: `Chair` , `Sofa` , `CoffeeTable` vb.
 
 Peki ya ürün varyantları? Bir ürün grubunun her bir varyantı için `AbstractFactory` arayüzünü temel alan ayrı bir fabrika sınıfı oluşturuyoruz. Fabrika, belirli bir türde ürünler döndüren bir sınıftır. Örneğin, `ModernFurnitureFactory` yalnızca `ModernChair` , `ModernSofa` ve `ModernCoffeeTable` nesnelerini oluşturabilir.
-![AbstractFactorySolution](../../../attachments/img/specials/AbstractFactory/AbstractFactorySolution1.png)
+![AbstractFactorySolution](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/AbstractFactory/AbstractFactorySolution1.png)
 > _Her somut fabrika belirli bir ürün varyantına karşılık gelir._
 
 İstemci kodu hem fabrikalarla hem de ürünlerle ilgili abstract arayüzleri üzerinden çalışmalıdır. Bu, istemci koduna aktardığınız fabrikanın türünü ve istemci kodunun aldığı ürün çeşidini, gerçek istemci kodunu bozmadan değiştirmenize olanak tanır.
@@ -39,7 +39,7 @@ Diyelim ki müşteri bir fabrikanın bir sandalye üretmesini istiyor. İstemcin
 
 ## Structure
 
-![AbstractFactoryStructure](../../../attachments/img/specials/AbstractFactory/AbstractFactoryStructure1.png)
+![AbstractFactoryStructure](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/AbstractFactory/AbstractFactoryStructure1.png)
 
 1. **Soyut Ürünler**, bir ürün ailesini oluşturan bir dizi farklı ancak ilgili ürün için arayüzler bildirir.
 2. **Somut Ürünler**, soyut ürünlerin varyantlara göre gruplandırılmış çeşitli uygulamalarıdır. Her soyut ürün (sandalye/kanepe) verilen tüm varyantlarda (Viktorya Dönemi/Modern) uygulanmalıdır.
@@ -51,7 +51,7 @@ Diyelim ki müşteri bir fabrikanın bir sandalye üretmesini istiyor. İstemcin
 
 Bu örnek, Abstract Factory modelinin, istemci kodunu somut UI sınıflarına bağlamadan platformlar arası UI öğeleri oluşturmak için nasıl kullanılabileceğini gösterirken, oluşturulan tüm öğeleri seçilen bir işletim sistemiyle tutarlı tutar.
 
-![AbstractFactoryPseadocode](../../../attachments/img/specials/AbstractFactory/AbstractFactoryPsuedocode.png)
+![AbstractFactoryPseadocode](https://raw.githubusercontent.com/kuvarti/DesignPattern/main/attachments/img/specials/AbstractFactory/AbstractFactoryPsuedocode.png)
 
 Platformlar arası bir uygulamadaki aynı kullanıcı arayüzü öğelerinin benzer şekilde davranması, ancak farklı işletim sistemlerinde biraz farklı görünmesi beklenir. Dahası, kullanıcı arayüzü öğelerinin mevcut işletim sisteminin stiliyle eşleştiğinden emin olmak sizin işinizdir. Programınızın Windows'ta çalıştırıldığında macOS kontrollerini oluşturmasını istemezsiniz.
 
